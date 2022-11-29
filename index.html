@@ -86,6 +86,14 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
+  // check other sources
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({
+      token: "0aa044493e104063a6ad371ab0ebec18"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
 
   <script>
     let form = document.querySelector('form');
@@ -102,6 +110,136 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    const consoleLogButton = errorBtns[0];
+    consoleLogButton.addEventListener('click', () => {
+      console.log('This is a console log message');
+    });
+
+    const consoleErrorButton = errorBtns[1];
+    consoleErrorButton.addEventListener('click', () => {
+      console.error('This is a console error message');
+    });
+
+    const consoleCountButton = errorBtns[2];
+    consoleCountButton.addEventListener('click', () => {
+      console.count('This is a console count message');
+    });
+
+    const consoleWarnButton = errorBtns[3];
+    consoleWarnButton.addEventListener('click', () => {
+      console.warn('This is a console warn message');
+    });
+
+    const consoleAssertButton = errorBtns[4];
+    consoleAssertButton.addEventListener('click', () => {
+      console.assert(1 === 2, 'This is a console assert message');
+    });
+
+    const consoleClearButton = errorBtns[5];
+    consoleClearButton.addEventListener('click', () => {
+      console.clear("console cleared");
+    });
+
+    const consoleDirButton = errorBtns[6];
+    consoleDirButton.addEventListener('click', () => {
+      console.dir("console dir");
+      console.dir();
+    });
+
+    const consoleDirxmlButton = errorBtns[7];
+    consoleDirxmlButton.addEventListener('click', () => {
+      console.dirxml(document);
+    });
+
+    const consoleGroupStartButton = errorBtns[8];
+    consoleGroupStartButton.addEventListener('click', () => {
+      console.group('This is a console group start message'); // check the message ["test", "message"]
+    });
+
+    const consoleGroupEndButton = errorBtns[9];
+    consoleGroupEndButton.addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    const consoleTableButton = errorBtns[10];
+    consoleTableButton.addEventListener('click', () => {
+      console.table(["test", "message"]);
+    });
+
+    const consoleStartTimerButton = errorBtns[11];
+    consoleStartTimerButton.addEventListener('click', () => {
+      console.time('This is a console start timer message');
+    });
+
+    const consoleEndTimerButton = errorBtns[12];
+    consoleEndTimerButton.addEventListener('click', () => {
+      console.timeEnd('This is a console end timer message');
+    });
+
+    const consoleTraceButton = errorBtns[13];
+    consoleTraceButton.addEventListener('click', () => {
+      console.trace('This is a console trace message'); // check the message 
+    });
+
+    const consoleTriggerGlobalErrorButton = errorBtns[14];
+    consoleTriggerGlobalErrorButton.addEventListener('click', () => {
+      test.substring(1); // check the message
+      // console.log('This is a console log message');
+      // console.error('This is a console error message');
+      // console.count('This is a console count message');
+      // console.warn('This is a console warn message');
+      // console.assert(1 === 2, 'This is a console assert message');
+      // console.clear();
+      // console.dir(document);
+      // console.dirxml(document);
+      // console.group('This is a console group start message');
+      // console.groupEnd();
+      // console.table(document);
+      // console.time('This is a console start timer message');
+      // console.timeEnd('This is a console end timer message');
+      // console.trace('This is a console trace message');
+    });
+
+    function testNegative(input) {
+      if (input > 0) {
+        return input;
+      } else {
+        throw new Error('Input must be equal or greater than 0');
+      }
+    }
+
+    try {
+      testNegative(-1);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      console.log('This is a console log message from finally testing negative');
+    }
+
+    let object = {
+      name: 'test',
+      age: 20
+    };
+    function testObject(input) {
+      if (!object.name) {
+        throw new ValidationError('Name is required');
+      }
+      if (!object.age) {
+        throw new ValidationError('Age is required');
+      }
+      return input;
+    }
+
+    window.onerror = function (message, source, lineno, colno, error) {
+      console.log('This is a console log message from window.onerror');
+      console.log(message);
+      console.log(source);
+      console.log(lineno);
+      console.log(colno);
+      console.log(error);
+      TrackJS.track(message);
+    }
+
   </script>
 </body>
 
